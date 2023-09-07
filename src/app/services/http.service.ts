@@ -27,17 +27,20 @@ export class HttpService {
 
   getGameDetails(id: string): Observable<Game> {
     const gameInfoRequest = this.http.get(`${env.BASE_URL}/games/${id}`);
+
     const gameTrailersRequest = this.http.get(
       `${env.BASE_URL}/games/${id}/movies`
     );
+    console.log('gameTrailersRequest', gameTrailersRequest);
+
     const gameScreenshotsRequest = this.http.get(
       `${env.BASE_URL}/games/${id}/screenshots_count`,
       // `https://api.rawg.io/api/games/${id}/screenshots`
     );
 
-    // gameScreenshotsRequest.subscribe((data) => {
-    //   console.log('data', data);
-    // });
+    gameScreenshotsRequest.subscribe((data) => {
+      console.log('data', data);
+    });
 
     return forkJoin({
       gameInfoRequest,
